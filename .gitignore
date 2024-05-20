@@ -1,0 +1,12 @@
+*.vvp
+*.vcd
+*.hex
+*.bin
+*.elf
+*.jou
+*.log
+*.o
+*.out
+start.o
+vivado_build/build/*
+obj_dir/*
