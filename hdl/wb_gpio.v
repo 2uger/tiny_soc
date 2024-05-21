@@ -27,12 +27,8 @@ module wb_gpio #(
     reg [7:0] gpio_inout;
     integer i;
     always @(*) begin
-        if (!resetn) begin
-            gpio_inout = 8'bz;
-        end else begin
-            for (i = 0; i < GPIO_NUM; i = i + 1) begin
-                gpio_inout[i] = (reg_ctrl[i] == 1) ? reg_val[i] : 1'bz;
-            end
+        for (i = 0; i < GPIO_NUM; i = i + 1) begin
+            gpio_inout[i] = (reg_ctrl[i] == 1) ? reg_val[i] : 1'bz;
         end
     end
 
@@ -40,7 +36,7 @@ module wb_gpio #(
 
     assign wb_stall_o = 0;
 
-    always @(posedge clk) begin
+    always @(posedge clk, negedge resetn) begin
         if (!resetn) begin
             reg_ctrl <= 32'b0;
             reg_val  <= 32'b0;
